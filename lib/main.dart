@@ -1,4 +1,4 @@
-import 'package:cleaning_comp/resources/color_manager.dart';
+import 'package:cleaning_comp/screens/main_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -8,12 +8,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        backgroundColor: ColorManager.black,
-        body: const Text("data"),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Web',
+      home: MainPage(),
     );
   }
 }
