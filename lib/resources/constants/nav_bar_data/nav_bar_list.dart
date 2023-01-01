@@ -30,3 +30,4 @@ class NavBarModel {
   final String title;
   NavBarModel(this.title);
 }
+//
