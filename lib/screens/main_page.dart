@@ -1,10 +1,9 @@
 import 'package:cleaning_comp/resources/color_manager.dart';
+import 'package:cleaning_comp/resources/constants/nav_bar_data/nav_bar_list.dart';
 import 'package:cleaning_comp/screens/contact_page.dart';
 import 'package:cleaning_comp/screens/home_page.dart';
 import 'package:cleaning_comp/screens/info_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,30 +12,24 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  String title = "Cleaning Comp";
+class _MainPageState extends State<MainPage> with NavBarList {
+  String title = "Canpak Group";
   int tabLength = 3;
-  final List<String> tabBarList = ["Anasayfa", "Hakkimizda", "Iletisim"];
-  final List<Widget> tabBarViewList = [HomePage(), InfoPage(), ContactPage()];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabLength,
       child: Scaffold(
         backgroundColor: Colors.black54,
-        appBar: customNavBar(),
+        appBar: customNavBar(context),
         body: customBody(),
       ),
     );
   }
 
-  TabBarView customBody() {
-    return TabBarView(
-      children: tabBarViewList.map((e) => e).toList(),
-    );
-  }
-
-  PreferredSize customNavBar() {
+  PreferredSize customNavBar(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return PreferredSize(
       preferredSize: const Size.fromHeight(70),
       child: Container(
@@ -49,14 +42,21 @@ class _MainPageState extends State<MainPage> {
               style: TextStyle(color: ColorManager.white),
             ),
             const Spacer(),
-            Expanded(
+            SizedBox(
+              width: size.width * .50,
               child: TabBar(
-                  indicatorColor: ColorManager.black,
-                  tabs: tabBarList.map((e) => Tab(text: e)).toList()),
+                  indicatorColor: Colors.transparent,
+                  tabs: navBarList.map((e) => Tab(text: e.title)).toList()),
             )
           ],
         ),
       ),
+    );
+  }
+
+  TabBarView customBody() {
+    return TabBarView(
+      children: navBarViewList.map((e) => e).toList(),
     );
   }
 }
